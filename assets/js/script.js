@@ -1,13 +1,22 @@
 var formEl = document.querySelector("#task-form");
 var tasksToDoEl = document.querySelector("#tasks-to-do");
 
-var createTaskHandler = function (event) {
+var taskFormHandler = function (event) {
   event.preventDefault();
   //This creates the ability for javascript to register users input and selections in the document. The .value attached to the end allows the .value property to be inputted//
   var taskNameInput = document.querySelector("input[name ='task-name']").value;
   var taskTypeInput = document.querySelector("select[name='task-type']").value;
   console.log(taskTypeInput);
+  //package up data as an object
+  var taskDataObj = {
+    name: taskNameInput,
+    type: taskTypeInput,
+  };
+  //send it as an argument to createTaskEl
+  creatTaskE1(taskDataObj);
+};
 
+var creatTaskE1 = function (taskDataObj) {
   // create list item
   var listItemEl = document.createElement("li");
   listItemEl.className = "task-item";
@@ -19,9 +28,9 @@ var createTaskHandler = function (event) {
   // add HTML content to div
   taskInfoEl.innerHTML =
     "<h3 class='task-name'>" +
-    taskNameInput +
+    taskDataObj.name +
     "</h3><span class='task-type'>" +
-    taskTypeInput +
+    taskDataObj.type +
     "</span>";
 
   listItemEl.appendChild(taskInfoEl);
@@ -31,4 +40,4 @@ var createTaskHandler = function (event) {
   console.dir(listItemEl);
 };
 
-formEl.addEventListener("submit", createTaskHandler);
+formEl.addEventListener("submit", taskFormHandler);
